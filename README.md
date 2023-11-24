@@ -33,7 +33,6 @@ Somente um usuário administrador pode realizar cadastros.
 
 **RF**
 Deve ser possível cadastrar a imagem do carro.
-Deve ser possível listar todos os carros.
 
 **RNF**
 Utilizar o multer para upload dos arquivos.
