@@ -1,29 +1,29 @@
-import { IDateProvider } from "../IDateProvider";
-import dayjs from "dayjs";
-import utc from "dayjs/plugin/utc";
+import { IDateProvider } from '../IDateProvider'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
 
-dayjs.extend(utc);
+dayjs.extend(utc)
 
 class DayjsDateProvider implements IDateProvider {
   compareInHours(start_date: Date, end_date: Date): number {
-    const end_date_utc = this.convertToUtc(end_date);
-    const start_date_utc = this.convertToUtc(start_date);
-    return dayjs(end_date_utc).diff(start_date_utc, "hours");
+    const end_date_utc = this.convertToUtc(end_date)
+    const start_date_utc = this.convertToUtc(start_date)
+    return dayjs(end_date_utc).diff(start_date_utc, 'hours')
   }
 
   convertToUtc(date: Date): string {
-    return dayjs(date).utc().local().format();
+    return dayjs(date).utc().local().format()
   }
 
   dateNow(): Date {
-    return dayjs().toDate();
+    return dayjs().toDate()
   }
 
   compareInDays(start_date: Date, end_date: Date): number {
-    const end_date_utc = this.convertToUtc(end_date);
-    const start_date_utc = this.convertToUtc(start_date);
-    return dayjs(end_date_utc).diff(start_date_utc, "days");
+    const end_date_utc = this.convertToUtc(end_date)
+    const start_date_utc = this.convertToUtc(start_date)
+    return dayjs(end_date_utc).diff(start_date_utc, 'days')
   }
 }
 
-export { DayjsDateProvider };
+export { DayjsDateProvider }

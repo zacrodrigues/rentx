@@ -1,54 +1,54 @@
-import { AppError } from "@shared/errors/AppError";
+import { AppError } from '@shared/errors/AppError'
 
-import { CategoriesRepositoryInMemory } from "@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory";
+import { CategoriesRepositoryInMemory } from '@modules/cars/repositories/in-memory/CategoriesRepositoryInMemory'
 
-import { CreateCategoryUseCase } from "./CreateCategoryUseCase";
+import { CreateCategoryUseCase } from './CreateCategoryUseCase'
 
-let createCategoryUseCase: CreateCategoryUseCase;
-let categoriresRepositoryInMemory: CategoriesRepositoryInMemory;
+let createCategoryUseCase: CreateCategoryUseCase
+let categoriresRepositoryInMemory: CategoriesRepositoryInMemory
 
-describe("Create Category", () => {
+describe('Create Category', () => {
   beforeEach(() => {
-    categoriresRepositoryInMemory = new CategoriesRepositoryInMemory();
+    categoriresRepositoryInMemory = new CategoriesRepositoryInMemory()
     createCategoryUseCase = new CreateCategoryUseCase(
-      categoriresRepositoryInMemory
-    );
-  });
+      categoriresRepositoryInMemory,
+    )
+  })
 
-  it("should be able to create a new category", async () => {
+  it('should be able to create a new category', async () => {
     const category = {
-      name: "Category Test",
-      description: "Category description test",
-    };
+      name: 'Category Test',
+      description: 'Category description test',
+    }
 
     await createCategoryUseCase.execute({
       name: category.name,
       description: category.description,
-    });
+    })
 
     const categoryCreated = await categoriresRepositoryInMemory.findByName(
-      category.name
-    );
+      category.name,
+    )
 
-    expect(categoryCreated).toHaveProperty("id");
-  });
+    expect(categoryCreated).toHaveProperty('id')
+  })
 
-  it("should not be able to create a new category with name exists", () => {
+  it('should not be able to create a new category with name exists', () => {
     expect(async () => {
       const category = {
-        name: "Category Test",
-        description: "Category description test",
-      };
+        name: 'Category Test',
+        description: 'Category description test',
+      }
 
       await createCategoryUseCase.execute({
         name: category.name,
         description: category.description,
-      });
+      })
 
       await createCategoryUseCase.execute({
         name: category.name,
         description: category.description,
-      });
-    }).rejects.toBeInstanceOf(AppError);
-  });
-});
+      })
+    }).rejects.toBeInstanceOf(AppError)
+  })
+})

@@ -1,25 +1,25 @@
-import { ICarImagesRepository } from "@modules/cars/repositories/ICarImagesRepository";
+import { ICarImagesRepository } from '@modules/cars/repositories/ICarImagesRepository'
 
-import { CarImage } from "../entities/CarImage";
-import { Repository, getRepository } from "typeorm";
+import { CarImage } from '../entities/CarImage'
+import { Repository, getRepository } from 'typeorm'
 
 class CarImagesRepository implements ICarImagesRepository {
-  private repository: Repository<CarImage>;
+  private repository: Repository<CarImage>
 
   constructor() {
-    this.repository = getRepository(CarImage);
+    this.repository = getRepository(CarImage)
   }
 
   async create(car_id: string, image_name: string): Promise<CarImage> {
     const carImage = this.repository.create({
       car_id,
       image_name,
-    });
+    })
 
-    await this.repository.save(carImage);
+    await this.repository.save(carImage)
 
-    return carImage;
+    return carImage
   }
 }
 
-export { CarImagesRepository };
+export { CarImagesRepository }

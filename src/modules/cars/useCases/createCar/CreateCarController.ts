@@ -1,6 +1,6 @@
-import { Request, Response } from "express";
-import { CreateCarUseCase } from "./CreateCarUseCase";
-import { container } from "tsyringe";
+import { Request, Response } from 'express'
+import { CreateCarUseCase } from './CreateCarUseCase'
+import { container } from 'tsyringe'
 
 class CreateCarController {
   async handle(request: Request, response: Response): Promise<Response> {
@@ -12,9 +12,9 @@ class CreateCarController {
       fine_amount,
       brand,
       category_id,
-    } = request.body;
+    } = request.body
 
-    const createCarUseCase = container.resolve(CreateCarUseCase);
+    const createCarUseCase = container.resolve(CreateCarUseCase)
 
     const car = await createCarUseCase.execute({
       name,
@@ -24,10 +24,10 @@ class CreateCarController {
       fine_amount,
       brand,
       category_id,
-    });
+    })
 
-    return response.status(201).json(car);
+    return response.status(201).json(car)
   }
 }
 
-export { CreateCarController };
+export { CreateCarController }

@@ -1,33 +1,33 @@
-import { ICreateRentalDTO } from "@modules/rentals/dtos/ICreateRentalDTO";
-import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
-import { Rental } from "../entities/Rental";
-import { Repository, getRepository } from "typeorm";
+import { ICreateRentalDTO } from '@modules/rentals/dtos/ICreateRentalDTO'
+import { IRentalsRepository } from '@modules/rentals/repositories/IRentalsRepository'
+import { Rental } from '../entities/Rental'
+import { Repository, getRepository } from 'typeorm'
 
 class RentalsRepository implements IRentalsRepository {
-  private respository: Repository<Rental>;
+  private respository: Repository<Rental>
 
   constructor() {
-    this.respository = getRepository(Rental);
+    this.respository = getRepository(Rental)
   }
 
   async findOpenRentalByCar(car_id: string): Promise<Rental> {
-    const openByCar = await this.respository.findOne({ 
+    const openByCar = await this.respository.findOne({
       where: {
         car_id,
-        end_date: null
-      }
-    });
-    return openByCar;
+        end_date: null,
+      },
+    })
+    return openByCar
   }
 
   async findOpenRentalByUser(user_id: string): Promise<Rental> {
-    const openByUser = await this.respository.findOne({ 
+    const openByUser = await this.respository.findOne({
       where: {
         user_id,
-        end_date: null
-      }
-    });
-    return openByUser;
+        end_date: null,
+      },
+    })
+    return openByUser
   }
 
   async create({
@@ -36,7 +36,7 @@ class RentalsRepository implements IRentalsRepository {
     user_id,
     id,
     end_date,
-    total
+    total,
   }: ICreateRentalDTO): Promise<Rental> {
     const rental = this.respository.create({
       car_id,
@@ -44,18 +44,18 @@ class RentalsRepository implements IRentalsRepository {
       user_id,
       id,
       end_date,
-      total
-    });
+      total,
+    })
 
-    await this.respository.save(rental);
+    await this.respository.save(rental)
 
-    return rental;
+    return rental
   }
 
   async findById(id: string): Promise<Rental> {
-    const rental = await this.respository.findOne(id);
-    return rental;
+    const rental = await this.respository.findOne(id)
+    return rental
   }
 }
 
-export { RentalsRepository };
+export { RentalsRepository }
